@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Cars</title>
+        <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+    </head>
+    <body>
+        <h1>Cars</h1>
+        <% for (var x in cars) { %>
+          <h3>Car: <%= cars[x].name %></h3>
+          <img src=<%= cars[x].img_source %>>
+          <hr>
+      <% } %>
+
+    </body>
+</html>
