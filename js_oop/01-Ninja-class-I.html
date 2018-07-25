@@ -1,0 +1,40 @@
+
+<html>
+	<head>
+	<title>Ninja class</title>
+		<script>
+
+			var Ninja = function(name) {
+				var self = this;
+				var speed = 3;  //private
+				var strength = 3;  //private
+				this.name = name; // but you can see the name!
+				this.health = 100;
+				this.sayName = function() {
+					console.log("My ninja name is " + this.name + "!");
+				};
+				
+				Ninja.prototype.showStats = function() {
+					console.log("Name: " + this.name + ", Health: " + this.health + ", Speed: " + speed + 
+					", Strength: " + strength);
+				};
+
+				Ninja.prototype.drinkSake = function() {
+					this.health += 10;
+					console.log("Ninja's new strength: " + this.health);
+				}
+			}
+			
+			var ninja1 = new Ninja("Hyabusa");
+			ninja1.sayName();
+			// -> "My ninja name is Hyabusa!"
+			ninja1.showStats();
+			// -> "Name: Hayabusa, Health: 100, Speed: 3, Strength: 3"
+			ninja1.drinkSake();
+
+		</script>
+	</head>
+</html>
+
+
+
