@@ -1,0 +1,59 @@
+<html>
+	<head>
+	<title>Min Heap</title>
+		<script>
+
+			function removeFromMinHeap(heap, val){
+				var last;
+
+				if (heap.length > 2) {
+					heap[1] = heap[heap.length - 1];
+					last = heap.pop();
+
+				} 
+				else {
+					last = heap.pop();
+					console.log(heap);
+					return last;
+				}
+
+				var done = false;
+				var p_ix = 1;
+
+				// console.log("parent = " + heap[p_ix]);
+
+				while (!done) {
+					c1_ix = p_ix * 2;
+					c2_ix = c1_ix + 1;
+					var temp = heap[p_ix];
+
+					if(temp > heap[c1_ix] || temp > heap[c2_ix]) {
+						if(temp > heap[c1_ix]) {
+							heap[p_ix] = heap[c1_ix];
+							heap[c1_ix] = temp;
+						} else if (temp > heap[c2_ix]) {
+							heap[p_ix] = heap[c2_ix];
+							heap[c2_ix] = temp;
+						}
+						done = true;
+					}
+					else {
+						p_ix += 1;
+					}
+				}
+				
+				console.log(heap);
+				return last;    
+
+			}
+			// sample outputs:
+			removeFromMinHeap([undefined, 3, 12, 8, 17, 13, 15, 10]);
+			// changes the heap to [undefined, 8, 12, 10, 17, 13, 15] and returns 3
+			removeFromMinHeap([undefined, 8]);
+			// changes the heap to [undefined] and returns 8
+
+
+		</script>
+	</head>
+</html>
+
