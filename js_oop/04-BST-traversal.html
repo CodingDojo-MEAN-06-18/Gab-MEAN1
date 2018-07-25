@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>BST Traversal</title>
+	<script type="text/javascript">
+
+	
+		function BST() {
+			this.root = null;
+		}
+
+
+		BST.prototype.insert = function(value){
+			if(this.root == null){
+				this.root = new Node(value);
+				return this;
+			} else {
+				this.root.insert(value);
+				return this;
+			}
+		}
+
+		function Node(value) {
+			this.value = value;
+			this.left = null;
+			this.right = null;
+		}
+
+		Node.prototype.insert = function(value){
+			if(value < this.value){
+				if(this.left){
+					this.left.insert(value);
+				}
+				else {
+					this.left = new Node(value);
+				}
+			}
+			else {
+				if(this.right){
+					this.right.insert(value);
+				}
+				else {
+					this.right = new Node(value);
+				}
+			}
+			return this;
+		}
+
+		// var first = new BST();
+		// first.insert(30);
+		// first.insert(50);
+		// first.insert(37).insert(41);
+		// first.insert(33).insert(59);
+		// first.insert(1).insert(5).insert(30).insert(25).insert(21);
+		// console.log(first.root);
+
+		BST.prototype.inOrder = function(root){
+			if(root.left){
+				this.inOrder(root.left);
+			}
+			console.log(root.value);
+
+			if (root.right){
+				this.inOrder(root.right);
+			}
+
+		};
+
+		BST.prototype.postOrder = function(root){
+			if(root.left){
+				this.postOrder(root.left);
+			}
+			if(root.right){
+				this.postOrder(root.right);
+			}
+			console.log(root.value);
+		};
+
+		BST.prototype.preOrder = function(root) {
+			console.log(root.value);
+
+			if(root.left){
+				this.preOrder(root.left);
+			}
+			if(root.right){
+				this.preOrder(root.right);
+			}
+		};
+
+		var first = new BST();
+
+		first.insert(40);
+		first.insert(20);
+		first.insert(25);
+		first.insert(50);
+
+
+		console.log(first);
+
+		console.log("In Order:");
+		first.inOrder(first.root);
+
+		console.log("Post Order:");
+		first.postOrder(first.root);
+
+		console.log("Pre Order:");
+		first.preOrder(first.root);
+
+</script>
+</head>
+<body>
+
+</body>
+</html>
