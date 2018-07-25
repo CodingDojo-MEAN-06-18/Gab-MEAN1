@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Socket IO Survey Form</title>
+        <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script type ="text/javascript" src="/socket.io/socket.io.js"></script>
+        <script type ="text/javascript">
+            $(document).ready(function (){
+    
+                // var socket = io(); //1
+          
+                // socket.on('possting_form', function (data) { //4
+                //     console.log(data.msg); //5
+                //     socket.emit('thankyou', { msg: 'Thank you for connecting me! -Client' }); //6
+                // });
+
+                console.log("doc ready");
+                // created socket connection
+                var socket = io.connect();
+                // when the survey is submitted emit all data from each section of the survey 
+                $('#survey_form').submit(function(e) {
+                    // console.log("Form submitted:");
+                    // console.log("name: " + $('#name').val());
+                    // console.log("location: " + $('#dojo_location').val());
+
+                    e.preventDefault();
+                    socket.emit("posting_form", {
+                        name: $('#name').val(),
+                        dojo_location: $('#dojo_Location').val(),
+                        fav_language: $('#fav_language').val(),
+                        comments: $('#comments').val()
+                    });
+                });
+                // changed html on div #message to display all the new information from the survey from json-> string
+                socket.on('updated_message', function (data){
+                    $('#message').html("Your emitted information to the server: " + JSON.stringify(data.response));
+                });
+                // changed html on div #random_number from json-> string of the random number generated
+                socket.on('random_number', function (data){
+                    $('#number').html("Your new lucky number emitted by the server is : " + JSON.stringify(data.response));
+                });
+             })
+
+          </script>
+    </head>
+    <body>
+       
+        <div id="message"></div>
+        <div id="number"></div>
+
+        <!-- <form action="/posting_form" method='post'> -->
+        <!-- <form> -->
+        <form action="" id="survey_form">
+            <p>Your name: <input type="text" name="name" id="name" placeholder="your name"></p>
+
+            <p>Dojo Location: <select name="dojo_location" id="dojo_location"></p>
+                <option value="dallas">Dallas</option>
+                <option value="seattle">Seattle</option>
+                <option value="chicago">Chicago</option>
+              </select>
+
+              <p>Favorite Language: <select name="fav_language" id="fav_language"></p>
+                <option value="javascript">JavaScript</option>
+                <option value="python">Python</option>
+              </select>
+
+              <p>Comment (optional): <textarea name="comments" id="comments"></textarea></p>
+
+              <input type="submit" value="Submit">
+        </form>
+
+    </body>
+</html>
