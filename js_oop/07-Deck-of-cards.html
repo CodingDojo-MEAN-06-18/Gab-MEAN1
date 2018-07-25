@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Deck of Cards</title>
+	<script type="text/javascript">
+
+// Assignment: Deck of Cards
+// Create a Card class. A card should have the following functionality:
+
+// Each Card should have a suit ("Hearts", "Clubs", "Diamonds", "Spades")
+// Each Card should have a string value (eg, "Ace", "Two", ...., "Queen", "King")
+// Each Card should have a numerical value (1-13)
+// Each Card should have a show method (log the card's information to the console)
+// Create a Deck class. A deck should have the following functionality:
+
+// The Deck should contain the 52 standard Cards
+// The Deck should be able to shuffle
+// The Deck should be able to reset
+// The Deck should be able to deal a random Card
+// Deal should return the Card that was dealt and remove it from the Deck
+// Now create a Player class. A Player should have the following functionality:
+
+// The Player should have a name
+// The Player should have a hand (an array of cards taken from a Deck)
+// The Player should be able to take a Card (use the deck.deal method)
+// The Player should be able to discard a Card
+
+class Card {
+	constructor(suit, strValue, numValue) {
+		this.suit = suit;
+		this.strValue = strValue;
+		this.numValue = numValue;
+	}
+
+	show() {
+		console.log(`${this.numValue} of ${this.suit}`);
+	}
+}
+
+class Deck {
+	constructor() {
+		this.deck = [];
+	}
+
+	shuffle() {
+		var m = this.deck.length, t, i;
+	  
+		// While there remain elements to shuffle…
+		while (m) {
+	  
+		  // Pick a remaining element…
+		  i = Math.floor(Math.random() * m--);
+	  
+		  // And swap it with the current element.
+		  t = this.deck[m];
+		  this.deck[m] = this.deck[i];
+		  this.deck[i] = t;
+		}
+	  
+		return this.deck;
+	  }
+
+
+	reset() {
+		// todo: check if deck has already been allocated, if so delete
+		const suits = ['Clubs', 'Hearts', 'Diamonds', 'Spades'];
+        const values = ['Ace', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'Jack', 'Queen', 'King'];
+
+		for (var suit in suits) {
+			for (var value in values) {
+				// console.log(`suit: ${suit} value: ${value}`);
+				// console.log(`suit type: ${typeof(suit)} value type: ${typeof(value)}`);
+				// console.log(`suit + value ${suit+value}`);
+				var nSuit = parseInt(suit);
+				var nValue = parseInt(value);
+				var pos = (nSuit*13) + nValue;
+				// console.log(`pos: ${pos}`);
+				// console.log(`nSuit type: ${typeof(nSuit)} nValue type: ${typeof(nValue)}`);
+				// console.log(`nSuit + nValue: ${nSuit + nValue}`);
+				this.deck[pos] = new Card(suits[nSuit], values[nValue], nValue);
+				// this.deck[nSuit + nValue].suit = suits[nSuit];
+				// this.deck[nSuit + nValue].numValue = nSuit + nValue;
+				// this.deck[nSuit + valunValuee].strValue = values[nValue];
+				console.log(`Card #${pos}: ${values[nValue]} of ${suits[suit]}`);
+			}
+		}
+	}
+
+	deal() {
+		var card = this.deck.pop();
+		console.log(`deal: ${card.strValue} of ${card.suit}`);
+		console.log(`cards left: ${this.deck.length}`);
+		return card;
+	}
+}
+
+class Player {
+	constructor(name) {
+		this.name = name;
+		this.hand = [];
+	}
+
+	draw(deck) {
+		this.hand.push(deck.deal());
+	}
+
+	discard() {
+		var card = this.hand.pop();
+		console.log(`discarding: ${card.strValue} of ${card.suit}`);
+	}
+}
+
+var myDeck = new Deck();
+myDeck.reset();
+myDeck.shuffle();
+// myDeck.deal();
+
+var me = new Player("Gabriela");
+me.draw(myDeck);
+me.draw(myDeck);
+me.draw(myDeck);
+me.discard();
+
+	</script>
+</head>
+<body>
+
+</body>
+</html>		
