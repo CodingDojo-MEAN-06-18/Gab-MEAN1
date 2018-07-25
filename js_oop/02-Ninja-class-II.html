@@ -1,0 +1,75 @@
+
+<html>
+	<head>
+	<title>Ninja II class</title>
+		<script>
+
+			var Ninja = function(name) {
+				var self = this;
+				var speed = 3;  //private
+				var strength = 3;  //private
+				this.name = name; // but you can see the name!
+				this.health = 100;
+				
+				this.sayName = function() {
+					console.log("My ninja name is " + this.name + "!");
+				};
+				
+				this.punch = function(ninja2) {
+					if(ninja2 instanceof Ninja) {
+						ninja2.health -= 5;
+						console.log(ninja2.name + " was punched by " + this.name + " and lost 5 Health!");
+					} else {
+						console.log("Invalid ninja object passed in");
+					}
+				}
+				
+				this.kick = function(ninja2) {
+					if(ninja2 instanceof Ninja) {
+						const n = strength * 15;
+						// do NOT use this.strength
+						// console.log(typeof(strength));
+						// console.log(typeof(n));
+						// console.log(n);
+						// console.log(isNaN(n));
+						ninja2.health -= n;
+						console.log(ninja2.name + " was kicked by " + this.name + " and lost " +  n + " Health!");
+					} else {
+						console.log("Invalid ninja object passed in");
+					}
+				}
+
+				Ninja.prototype.showStats = function() {
+					console.log("Name: " + this.name + ", Health: " + this.health + ", Speed: " + speed + 
+					", Strength: " + strength);
+				};
+
+				Ninja.prototype.drinkSake = function() {
+					this.health += 10;
+					console.log("Ninja's new strength: " + this.health);
+				}
+			}
+			
+			// var ninja1 = new Ninja("Hyabusa");
+			// ninja1.sayName();
+			// // -> "My ninja name is Hyabusa!"
+			// ninja1.showStats();
+			// // -> "Name: Hayabusa, Health: 100, Speed: 3, Strength: 3"
+			// ninja1.drinkSake();
+
+			var blueNinja = new Ninja("Goemon");
+			var redNinja = new Ninja("Bill Gates");
+			redNinja.punch(blueNinja);
+			// -> "Goemon was punched by Bill Gates and lost 5 Health!"
+			blueNinja.kick(redNinja);
+			// -> "Bill Gates was kicked by Goemon and lost 15 Health!"
+			// In this case, redNinja Bill Gates lost 15 health because blueNinja Goemon has 1 point of strength
+
+
+
+		</script>
+	</head>
+</html>
+
+
+
