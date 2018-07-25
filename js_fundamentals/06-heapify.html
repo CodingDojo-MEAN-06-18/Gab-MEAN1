@@ -1,0 +1,45 @@
+<html>
+	<head>
+	<title>Heapify</title>
+		<script>
+
+			function heapify(arr){
+				var temp;
+
+				// if (arr.length > 1) { 
+					arr.push(arr[0]);
+					if (arr[0] != undefined) {
+						arr[0] = undefined;
+					}
+				// }  
+				
+				for(let ix_outer=1; ix_outer < arr.length; ix_outer++) {
+					var temp = arr[ix_outer];
+
+					for (let ix=1; ix < arr.length; ix++) {
+						c1_ix = ix * 2;
+						c2_ix = c1_ix + 1;
+
+						var temp = arr[ix];
+
+						if(temp > arr[c1_ix] || temp > arr[c2_ix]) {
+							if(temp > arr[c1_ix]) {
+								arr[ix] = arr[c1_ix];
+								arr[c1_ix] = temp;
+							} else if (temp > arr[c2_ix]) {
+								arr[ix] = arr[c2_ix];
+								arr[c2_ix] = temp;
+							}
+						}
+					}
+				}
+
+				console.log(arr);
+				return arr;    
+			}
+			// sample output
+			heapify([20, 3, 8, 14, 9, 6, 2]);
+			// alters the array to [undefined, 2, 6, 3, 9, 8, 14, 20]
+		</script>
+	</head>
+</html>
