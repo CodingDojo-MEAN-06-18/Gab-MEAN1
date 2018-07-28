@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Squirrel Dashboard</title>
+        <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+    </head>
+    <body>
+
+        <!-- USING FLASH MESSAGES: -->
+        
+        <!-- tip to easily see objects printed in full instead of [object Object] -->
+        <%- JSON.stringify(messages) %> 
+        <!-- based on the structure of your messages, determine how to display them -->
+        <% if(messages.quote) { %>
+            <% for (var x of messages.quote) { %>
+            <h3><%= x %></h3>
+            <% } %>
+        <% } %>
+
+		<h1>Create a new Squirrel</h1>
+		
+
+		<form action="/squirrels" method='post'>
+            <p>Name: <input type="text" name="name" placeholder="chubby"></p>
+            <p>Type: <input type="text" name="type" placeholder="flying"></p>
+
+            <!-- <p>Dojo Location: <select name="dojo_location"></p>
+                <option value="dallas">Dallas</option>
+                <option value="seattle">Seattle</option>
+                <option value="chicago">Chicago</option>
+              </select>
+
+              <p>Favorite Language: <select name="fav_language"></p>
+                <option value="javascript">JavaScript</option>
+                <option value="python">Python</option>
+              </select> -->
+
+              <!-- <p>Your quote: <textarea name="comments"></textarea></p> -->
+
+              <input type="submit" value="Add this squirrel!">
+        </form>
+       
+        <!-- <form action="/quotes" method='get'>
+            <input type="submit" value="Skip to quotes!">
+		</form>
+		
+
+
+    </body>
+</html>

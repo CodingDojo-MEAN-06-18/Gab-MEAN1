@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Squirrel Dashboard</title>
+        <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+    </head>
+    <body>
+
+        <!-- USING FLASH MESSAGES: -->
+        
+        <!-- tip to easily see objects printed in full instead of [object Object] -->
+        <%- JSON.stringify(messages) %> 
+        <!-- based on the structure of your messages, determine how to display them -->
+        <% if(messages.quote) { %>
+            <% for (var x of messages.quote) { %>
+            <h3><%= x %></h3>
+            <% } %>
+        <% } %>
+
+		<h1>Squirrel information</h1>
+		
+		<fieldset>
+			<% if (squirrels) { %>
+				<% for (squirrel of squirrels) { %>
+					<a href="/squirrels/<%= squirrel.id %>"><h3 class="name">Name: "<%= squirrel.name %>"</h3></a>
+					<h3> Id: "<%= squirrel.id %>" </h3>
+					<h3 class="type">Type: "<%= squirrel.type %>"</h3> 
+				<% } %>
+			<% } %>
+        </fieldset>
+		<a href="/squirrels/new">Create a new Squirrel</a>
+
+
+    </body>
+</html>
