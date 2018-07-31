@@ -1,0 +1,184 @@
+<html>
+
+   <head>
+
+      <script type="text/javascript">
+
+
+			var hashMap = [];
+			hashMap.length = 30;  // set the capacity by defining the length of the array
+
+			String.prototype.hashCode = function(){
+			    var hash = 0;
+			    if(this.length == 0){
+			        return hash;
+			    }
+			    for(i=0; i<this.length; i++){
+			        var char = this.charCodeAt(i);
+			        hash = ((hash<<5)-hash) + char;  // bitwise operators are used to manipulate the string in binary
+			        hash &= hash;                
+			    }
+			    return hash;                         // by the end of the loop, the hash is unique to this string
+			}
+
+			// Now, when we need a particular string's hash code, we may call its hashCode method, which we just created
+			var hashedKey = "role".hashCode();
+
+			function mod(input, div){
+				   return (input % div + div) % div;
+			}
+
+			// use the function to get the index position where we should store our data
+			// var idx = mod(hashedKey, hashMap.length);
+
+
+			function hashmapInsert(key, value){
+				// Now, when we need a particular string's hash code, we may call its hashCode method, which we just created
+				var hashedKey = key.hashCode();
+				// use the function to get the index position where we should store our data
+				var idx = mod(hashedKey, hashMap.length);
+
+				// console.log("hashedKey: " + hashedKey);
+				// console.log("idx: " + idx);
+
+				// Remember that each key may only be used once. With any key-value pairs, if we assign a value to a key that
+				// does not exist, then the key will be created. If the key already exists, then the key will be reassigned
+				// to the new value.
+
+				hashMap[idx] = [key, value];
+
+				// if (hashMap[idx] === undefined){
+				// 	hashMap[idx] = [key, value]
+				// } else {
+				// 	hashMap[idx].push(value);
+				// }
+
+				var count = 0;
+				for (var idx = 0; idx < hashMap.length; idx++) {
+					if (hashMap[idx]){
+						count += 1
+					}
+				}
+
+				console.log("count: " + count);
+
+				// if ((count / hashMap.length) > .70){
+				if ((count / hashMap.length) > .10){
+					return growHashmap(hashMap);
+				} else {
+					return hashMap;
+				}
+
+			}
+
+			function hashInsert(key, value, hashMap){
+				console.log("hashInsert");
+
+				let hashedKey = key.hashCode();
+				let idx = mod(hashedKey, hashMap.length);
+
+				if (hashMap[idx] === undefined){
+					hashMap[idx] = [key, value]
+				} else {
+					hashMap[idx][1] = value;
+				}
+				let count = 0;
+				for (let x = 0; x < hashMap.length; x++) {
+					if (hashMap[x]){
+						count += 1
+					}
+				}
+//
+// 				console.log("count: " + count);
+
+// 				// if ((count / hashMap.length) > .70){
+// 				if ((count / hashMap.length) > .10){
+// 					return growHashmap(hashMap);
+// 				} else {
+// 					return hashMap;
+// 				}
+			}
+
+			hashmapInsert('composer', 'Gounod');
+			console.log(hashMap);
+
+			hashmapInsert('name', 'Hildegard');
+			console.log(hashMap);
+
+			hashmapInsert('name', 'Athanasius');
+			console.log(hashMap);
+
+			hashmapInsert('name', 'Bernard');
+			console.log(hashMap);
+
+			hashmapInsert('fastfood', 'chickfila');
+
+			hashmapInsert('wine', 'Trigpoint Zinfandel');
+
+			hashmapInsert('weather', '112');
+
+			function test(hashmap, key) {
+				if(hashmap[idx][0]){
+					return
+				}
+			}
+
+			function hashmapLookup(hashmap, key){
+				var retval = null;
+
+				// retval = hashmap.findIndex((hashmap[idx][0] != NULL) && (key == hashmap[idx][0]));
+
+				// console.log("retval: " + retval);
+
+				for (var idx = 0; idx < hashmap.length; idx++) {
+					if (hashmap[idx] != undefined && key == hashmap[idx][0]) {
+						return hashmap[idx][1];
+					}
+				}
+				return null;
+			}
+
+			var ret = hashmapLookup(hashMap, 'name');
+			console.log(ret);
+
+			var ret = hashmapLookup(hashMap, 'composer');
+			console.log(ret);
+
+
+
+			function growHashmap(hashmap) {
+				var newHashmap = []
+				newHashmap.length = Math.floor(hashmap.length * 1.5);
+				console.log("new hashmap length: " + newHashmap.length);
+				for (var idx = 0; idx < hashMap.length; idx++) {
+					if (hashMap[idx]){
+						hashInsert(hashMap[idx][0], hashMap[idx][1], newHashmap)
+					}
+				}
+				hashmap = newHashmap;
+				// console.log(hashmap);
+				return hashmap;
+			}
+
+
+
+
+
+
+
+
+
+
+
+
+
+      </script>
+
+   </head>
+
+   <body>
+	
+
+   </body>
+
+</html>
